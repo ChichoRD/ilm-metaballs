@@ -15,8 +15,16 @@ internal class MetaballPass : ScriptableRenderPass
         _material = material;
     }
 
+    // Sincroniza el material cada frame
+    public void UpdateMaterial(Material mat)
+    {
+        _material = mat;
+    }
+
     public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
     {
+        if (_material == null) return;
+
         UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
         var colorTarget = resourceData.activeColorTexture;
         TextureHandle temporaryTarget = renderGraph.CreateTexture(renderGraph.GetTextureDesc(colorTarget));

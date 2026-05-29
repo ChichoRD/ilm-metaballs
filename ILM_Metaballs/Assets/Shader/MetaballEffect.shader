@@ -2,8 +2,10 @@ Shader "Postprocess/MetaballEffect"
 {
     Properties
     {
-        _Threshold     ("Threshold",      Range(0.1, 2.0)) = 0.5
-        _MetaballColor ("Metaball Color", Color)           = (1, 0.4, 0.1, 1)
+        _Threshold      ("Threshold",       Range(0.1, 2.0)) = 0.5
+        _MetaballColor  ("Metaball Color",  Color)           = (1, 0.4, 0.1, 1)
+        // Toggle: 1 = mostrar solo la mascara, 0 = efecto normal
+        [Toggle] _ShowMaskOnly ("Show Mask Only", Float)     = 0
     }
     SubShader
     {
@@ -28,6 +30,7 @@ Shader "Postprocess/MetaballEffect"
 
             float4 _MetaballColor;
             float  _Threshold;
+            float  _ShowMaskOnly;
 
             // Posiciones de las esferas en View Space (coordenadas de camara)
             // xy = posicion en pantalla NDC, z = profundidad, w = radio de influencia
@@ -64,12 +67,16 @@ Shader "Postprocess/MetaballEffect"
                     field += falloff(dist, _MetaballPositions[j].w);
                 }
 
-                // Threshold: si el campo supera el umbral, pixel solido
+                field = saturate(field);
                 float solid = step(_Threshold, field);
 
-                // Mezclar escena con color metaball
-                float4 finalColor = lerp(sceneColor, _MetaballColor, solid);
-                return finalColor;
+                // Modo mascara: muestra el campo en escala de grises
+                // Se ve la gradiente de influencia de cada esfera
+                if (_ShowMaskOnly > 0.5)
+                    return float4(field, field, field, 1.0);
+
+                // Modo normal: mezcla escena con color metaball
+                return lerp(sceneColor, _MetaballColor, solid);
             }
             ENDHLSL
         }

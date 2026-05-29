@@ -8,27 +8,25 @@ public class MetaballFeature : ScriptableRendererFeature
     private RenderPassEvent @event = RenderPassEvent.AfterRenderingTransparents;
 
     [SerializeField]
-    [HideInInspector]
     private Material _myMaterial = null;
 
     private MetaballPass pass;
 
     public override void Create()
     {
-        if (_myMaterial == null)
-            _myMaterial = CoreUtils.CreateEngineMaterial("Postprocess/MetaballEffect");
-
+        // Usamos el materialque asigna el usuario
         pass = new MetaballPass(@event, _myMaterial);
     }
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
-        bool isMainCamera   = renderingData.cameraData.camera.tag == "MainCamera";
-        bool isSceneCamera  = renderingData.cameraData.isSceneViewCamera;
+        if (_myMaterial == null) return;
 
+        bool isMainCamera  = renderingData.cameraData.camera.tag == "MainCamera";
+        bool isSceneCamera = renderingData.cameraData.isSceneViewCamera;
         if (!isMainCamera && !isSceneCamera) return;
 
-        Debug.Assert(_myMaterial != null, this);
+        pass.UpdateMaterial(_myMaterial);
         renderer.EnqueuePass(pass);
     }
 }

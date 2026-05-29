@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MetaballFeature
   m_Active: 1
   event: 500
-  _myMaterial: {fileID: 0}
+  _myMaterial: {fileID: 2100000, guid: d84652a453484c4408e830f842a76d23, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
