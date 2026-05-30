@@ -37,8 +37,17 @@ public class MetaballManager : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             if (metaballs[i] == null) continue;
+
             Vector3 screenPos = cam.WorldToViewportPoint(metaballs[i].position);
-            positions[i] = new Vector4(screenPos.x, screenPos.y, screenPos.z, influenceRadius);
+
+            // Si la esfera está detrás de la cámara
+            if (screenPos.z < 0) continue;
+
+            // Escalar el radio segun la profundidad
+            float tanHalfFov = Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+            float perspRadius = influenceRadius / (screenPos.z * 2f * tanHalfFov);
+
+            positions[i] = new Vector4(screenPos.x, screenPos.y, screenPos.z, perspRadius);
         }
 
         Shader.SetGlobalVectorArray(PositionsId, positions);
