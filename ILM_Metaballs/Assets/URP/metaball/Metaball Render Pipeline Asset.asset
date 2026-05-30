@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf2edee5c58d82540a51f03df9d42094, type: 3}
-  m_Name: Metaballs_Blur
+  m_Name: Metaball Render Pipeline Asset
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset
   k_AssetVersion: 13
   k_AssetPreviousVersion: 13
@@ -18,6 +18,7 @@ MonoBehaviour:
   m_RendererData: {fileID: 0}
   m_RendererDataList:
   - {fileID: 11400000, guid: 4046e11668aca0b4ebbaab99fdf90a0a, type: 2}
+  - {fileID: 11400000, guid: 03e3a4a3df4d96d4b887fc368e502d2c, type: 2}
   m_DefaultRendererIndex: 0
   m_RequireDepthTexture: 0
   m_RequireOpaqueTexture: 0
@@ -53,7 +54,7 @@ MonoBehaviour:
   m_AdditionalLightsShadowResolutionTierHigh: 1024
   m_ReflectionProbeBlending: 0
   m_ReflectionProbeBoxProjection: 0
-  m_ReflectionProbeAtlas: 0
+  m_ReflectionProbeAtlas: 1
   m_ShadowDistance: 50
   m_ShadowCascadeCount: 1
   m_Cascade2Split: 0.25
