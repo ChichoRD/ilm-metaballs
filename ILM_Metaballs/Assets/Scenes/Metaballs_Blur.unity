@@ -1147,7 +1147,7 @@ MonoBehaviour:
   - {fileID: 1079542071}
   - {fileID: 1358212778}
   - {fileID: 645435219}
-  influenceRadius: 0.15
+  influenceRadius: 2
 --- !u!4 &802541291
 Transform:
   m_ObjectHideFlags: 0
